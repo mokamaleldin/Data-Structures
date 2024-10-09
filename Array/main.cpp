@@ -14,6 +14,7 @@ class Array {
             length = 0;
             items = new int[arrsize];
         }
+
         // to fill the array with items (only if the number of items is less than the array size)
         void fill(){
             int numberOfItems;
@@ -31,6 +32,7 @@ class Array {
                 }
             }
         }
+
         // Display the array content (print the array content)
         void Display(){
             cout << "Display Array content" << endl;
@@ -40,6 +42,7 @@ class Array {
             }
             cout << endl << endl;
         }
+        
         // Get the size of the array
         int getSize(){
             return size;
@@ -95,6 +98,22 @@ class Array {
             length--;
         }
     }
+
+    //make the size of the array more big (for example if the size is 5 make it 10)
+    void Enlarge(int newSize){
+        if(newSize <= size){
+            cout << "New size must be lager than current size" << endl;
+            return;
+        }else{
+            size = newSize;
+            int *oldArray = items;
+            items = new int[newSize];
+            for (int i = 0; i < length;i++){
+                items[i] = oldArray[i];
+            }
+        delete[]oldArray;
+        }
+    }
 };
 
 int main(){
@@ -141,14 +160,26 @@ int main(){
     cin >> value;
     myArray.Insert(indexadd, value);
 
-
-    cout << "while length = " << myArray.getLength() << endl;
-
     // Delete
     int indexDelete;
     cout << "Enter the index you want to Delete: ";
     cin >> indexDelete;
     myArray.Delete(indexDelete);
+
+    //size of the array
+    cout << "Array size = " << myArray.getSize()<<endl;
+    cout << "while length = " << myArray.getLength() << endl;
+
+    //Enlarge
+    string isSize;
+    cout << "Do you want to make a new size for the current array size (yes or no ): ";
+    cin >> isSize;
+    if(isSize == "yes"){
+        int size;
+        cout << "Enter the new size of the array: ";
+        cin >> size;
+        myArray.Enlarge(size);
+    }
 
     //size of the array
     cout << "Array size = " << myArray.getSize()<<endl;
