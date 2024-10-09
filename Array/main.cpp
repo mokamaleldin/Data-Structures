@@ -19,7 +19,7 @@ class Array {
             int numberOfItems;
             cout << "How many items you want to fill: ";
             cin >> numberOfItems;
-            if(numberOfItems >= size){
+            if(numberOfItems > size){
                 cout << "You cannot exceed the array size";
                 return;
             }
@@ -85,6 +85,16 @@ class Array {
                 cout << "Array is full" << endl;
             }
         }
+
+    // Delete item with index
+    void Delete(int index){
+        if(index >=0 && index < size){
+            for (int i = index; i < length;i++){
+                items[index] = items[index + 1];
+            }
+            length--;
+        }
+    }
 };
 
 int main(){
@@ -96,11 +106,6 @@ int main(){
     
     //fill the Array
     myArray.fill();
-    
-    //size of the array
-    cout << "Array size = " << myArray.getSize()<<endl;
-    cout << "while length = " << myArray.getLength() << endl;
-    
 
     //search
     int key = 0;
@@ -135,6 +140,19 @@ int main(){
     cout << "Enter the value: ";
     cin >> value;
     myArray.Insert(indexadd, value);
+
+
+    cout << "while length = " << myArray.getLength() << endl;
+
+    // Delete
+    int indexDelete;
+    cout << "Enter the index you want to Delete: ";
+    cin >> indexDelete;
+    myArray.Delete(indexDelete);
+
+    //size of the array
+    cout << "Array size = " << myArray.getSize()<<endl;
+    cout << "while length = " << myArray.getLength() << endl;
 
     // print
     myArray.Display();
