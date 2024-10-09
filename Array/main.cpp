@@ -49,7 +49,7 @@ class Array {
             return length;
         }
 
-        //
+        //search about any number i want in the items
         int Search(int key){
             int index = -1;
             for (int i = 0; i < length;i++){
@@ -70,6 +70,19 @@ class Array {
             else
             {
                 cout << "Array is full"<<endl;
+            }
+        }
+
+        //Add a number to the items but in the index i wnat
+        void Insert(int index,int value){
+            if(index < size && index>=0){
+                for (int i = length; i > index;i--){
+                    items[i] = items[i - 1];
+                }
+                items[index] = value;
+                length++;
+            }else{
+                cout << "Array is full" << endl;
             }
         }
 };
@@ -114,6 +127,14 @@ int main(){
         cin >> newItem;
         myArray.Append(newItem);
     }
+
+    //Insert
+    int indexadd, value;
+    cout << "Enter the index: ";
+    cin >> indexadd;
+    cout << "Enter the value: ";
+    cin >> value;
+    myArray.Insert(indexadd, value);
 
     // print
     myArray.Display();
