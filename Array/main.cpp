@@ -114,6 +114,30 @@ class Array {
         delete[]oldArray;
         }
     }
+
+    //merge to array (like merge my array with anthor array)
+    void Merge(Array other){
+        int newSize = size + other.getSize();
+        size = newSize;
+        int *myOldArray = items;
+        items = new int[newSize];
+        
+        //add the old array to the new array
+        int i;
+        for (i = 0; i < length; i++)
+        {
+            items[i] = myOldArray[i];
+        }
+        delete[] myOldArray;
+
+        //add the array i wnat to marge it
+        int j = i;
+        for (int i = 0; i < other.getLength();i++)
+        {
+            items[j++] = other.items[i];
+            length++;
+        }
+    }
 };
 
 int main(){
@@ -181,8 +205,12 @@ int main(){
         myArray.Enlarge(size);
     }
 
-    //size of the array
-    cout << "Array size = " << myArray.getSize()<<endl;
+    Array other(3); //new array 
+    other.fill(); //the fill function above
+    myArray.Merge(other);
+
+    // size of the array
+    cout<< "Array size = " << myArray.getSize() << endl;
     cout << "while length = " << myArray.getLength() << endl;
 
     // print
