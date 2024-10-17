@@ -21,25 +21,26 @@ class Node{
         Node *next;
 };
 
+
 class LinkedList{
     public:
-        Node *Head;
+        Node *Head; // مؤشر إلى أول عقدة في القائمة
 
     //create the list
     LinkedList(){
         Head = NULL;
     }
 
-    //is the list is empty or not 
+    // التحقق مما إذا كانت القائمة فارغة
     bool isEmpty(){
         return (Head == NULL);
     }
 
-    //insert first Element
+    // إدراج عنصر في بداية القائمة
     void insertFirst(int newValue){
 
-        Node *newNode = new Node();
-        newNode->Data = newValue;
+        Node *newNode = new Node(); // إنشاء عقدة جديدة
+        newNode->Data = newValue; // تخزين القيمة الجديدة في العقدة
 
         if (isEmpty()){
             newNode->next = NULL;
@@ -47,20 +48,20 @@ class LinkedList{
         else{
             newNode->next = Head;
         }
-        Head = newNode;
+        Head = newNode; // تحديث الرأس ليشير إلى العقدة الجديدة
     }
 
     //Display / Traverse
     void Display(){
-        Node *temp = Head;
+        Node *temp = Head; // بدء الاجتياز من الرأس
         while(temp != NULL){
             cout << temp->Data << " -> ";  
-             temp = temp->next;
+             temp = temp->next; // الانتقال إلى العقدة التالية
         }
         cout << "NULL" << endl;
     }
 
-    //count
+    // حساب عدد العناصر في القائمة
     void count(){
         int counter;
         Node *temp = Head;
@@ -71,7 +72,7 @@ class LinkedList{
         cout << "The list contains " << counter << " items." << endl;
     }
 
-    //search
+    // البحث عن عنصر في القائمة
     bool isFound(int key){
         Node *temp = Head;
         while(temp != NULL){
@@ -87,19 +88,20 @@ class LinkedList{
 int
 main()
 {
-    LinkedList list;
+    LinkedList list;  // إنشاء قائمة جديدة
 
-    //if it is empty it will tell me if it not empty it will retun the list contains
+    // التحقق مما إذا كانت القائمة فارغة
     if(list.isEmpty()){
         cout << "The list is Empty" << endl;
     }else{
         list.count();
     }
 
-    //add item to the first
+    // إدخال عدد العناصر التي يرغب المستخدم في إضافتها
     int numOfItems;
     cout << "Enter how many items you want to add to the Linked list: ";
     cin >> numOfItems;
+    // إدخال العناصر في القائمة
     for (int i = 0; i < numOfItems;i++){
         int item;
         cout << "Enter Item to insert in the list: ";
@@ -110,7 +112,7 @@ main()
     // dispaly
     list.Display();
 
-    //search
+    // البحث عن عنصر معين في القائمة
     int search;
     cout << "Enter item to search for: ";
     cin >> search;
