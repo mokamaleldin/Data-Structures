@@ -4,59 +4,63 @@ using namespace std;
 
 class Array {
     private:
-        int size;
-        int length;
+        int size;   // حجم المصفوفة
+        int length; // عدد العناصر المخزنة حاليًا في المصفوفة
         int *items;
+
     public:
-        // Constructor to initialize the array with a given size 
-        Array(int arrsize){
-            size = arrsize;
-            length = 0;
-            items = new int[arrsize];
+        // **دالة المنشئ** لتحديد حجم المصفوفة عند الإنشاء
+        Array(int arrsize) {
+            size = arrsize; // تخزين الحجم المحدد
+            length = 0; 
+            items = new int[arrsize]; // إنشاء مصفوفة جديدة بالحجم المحدد
         }
 
-        // to fill the array with items (only if the number of items is less than the array size)
-        void fill(){
+        //دالة تعبئة المصفوفة 
+        void fill() {
             int numberOfItems;
             cout << "How many items you want to fill: ";
             cin >> numberOfItems;
-            if(numberOfItems > size){
+
+            // التحقق من تجاوز عدد العناصر للحجم المحدد
+            if (numberOfItems > size) {
                 cout << "You cannot exceed the array size";
+                // إنهاء الدالة إذا كان العدد أكبر من الحجم
                 return;
-            }
-            else{
-                for (int i = 0; i < numberOfItems;i++){
-                    cout << "Enter item num" << i <<": ";
+            } else {
+                // إدخال العناصر وتحديث الطول
+                for (int i = 0; i < numberOfItems; i++) {
+                    cout << "Enter item num" << i << ": ";
                     cin >> items[i];
                     length++;
                 }
             }
         }
 
-        // Display the array content (print the array content)
-        void Display(){
+        // **دالة عرض محتوى المصفوفة**
+        void Display() {
             cout << "Display Array content" << endl;
-            for (int i = 0; i < length; i++)
-            {
-                cout << items[i] << "\t";
+            for (int i = 0; i < length; i++) {
+                cout << items[i] << "\t"; 
             }
             cout << endl << endl;
         }
-        
-        // Get the size of the array
-        int getSize(){
+
+        // **إرجاع الحجم الأصلي للمصفوفة**
+        int getSize() {
             return size;
         }
-        // Get the length of the array
-        int getLength(){
+
+        // **إرجاع عدد العناصر المخزنة حاليًا**
+        int getLength() {
             return length;
         }
 
-        //search about any number i want in the items
-        int Search(int key){
+        // **البحث عن عنصر في المصفوفة**
+        int Search(int key) {
             int index = -1;
-            for (int i = 0; i < length;i++){
-                if(items[i] == key){
+            for (int i = 0; i < length; i++) {
+                if (items[i] == key) {
                     index = i;
                     break;
                 }
@@ -64,155 +68,154 @@ class Array {
             return index;
         }
 
-        //Append (to add the new item to the Array in the end)
-        void Append(int newItem){
-            if(length <= size){
+        // **إضافة عنصر جديد في نهاية المصفوفة**
+        void Append(int newItem) {
+            if (length < size) {
                 items[length] = newItem;
                 length++;
-            }
-            else
-            {
-                cout << "Array is full"<<endl;
-            }
-        }
-
-        //Add a number to the items but in the index i wnat
-        void Insert(int index,int value){
-            if(index < size && index>=0){
-                for (int i = length; i > index;i--){
-                    items[i] = items[i - 1];
-                }
-                items[index] = value;
-                length++;
-            }else{
+            } else {
                 cout << "Array is full" << endl;
             }
         }
 
-    // Delete item with index
-    void Delete(int index){
-        if(index >=0 && index < size){
-            for (int i = index; i < length;i++){
-                items[index] = items[index + 1];
+        // **إدراج عنصر في موقع معين**
+        void Insert(int index, int value) {
+            if (index >= 0 && index < size) { 
+                for (int i = length; i > index; i--) {
+                    items[i] = items[i - 1]; // إزاحة العناصر
+                }
+                items[index] = value;
+                length++;
+            } else {
+                cout << "Array is full" << endl;
             }
-            length--;
         }
-    }
 
-    //make the size of the array more big (for example if the size is 5 make it 10)
-    void Enlarge(int newSize){
-        if(newSize <= size){
-            cout << "New size must be lager than current size" << endl;
-            return;
-        }else{
-            size = newSize;
-            int *oldArray = items;
-            items = new int[newSize];
-            for (int i = 0; i < length;i++){
-                items[i] = oldArray[i];
+        // **حذف عنصر من فهرس معين**
+        void Delete(int index) {
+            if (index >= 0 && index < length) {
+                for (int i = index; i < length - 1; i++) {
+                    items[i] = items[i + 1]; // إزاحة العناصر
+                }
+                length--;
+            } else {
+                cout << "we don't have this index!!";
             }
-        delete[]oldArray;
         }
-    }
 
-    //merge to array (like merge my array with anthor array)
-    void Merge(Array other){
-        int newSize = size + other.getSize();
-        size = newSize;
-        int *myOldArray = items;
-        items = new int[newSize];
-        
-        //add the old array to the new array
-        int i;
-        for (i = 0; i < length; i++)
-        {
-            items[i] = myOldArray[i];
+        // **تكبير حجم المصفوفة**
+        void Enlarge(int newSize) {
+            if (newSize <= size) {
+                cout << "New size must be larger than current size" << endl;
+                return;
+            } else {
+                int *oldArray = items; // حفظ المصفوفة القديمة
+                items = new int[newSize]; // إنشاء مصفوفة جديدة
+                for (int i = 0; i < length; i++) {
+                    items[i] = oldArray[i]; // نسخ العناصر
+                }
+                delete[] oldArray; // حذف المصفوفة القديمة
+                size = newSize; // تحديث الحجم
+            }
         }
-        delete[] myOldArray;
 
-        //add the array i wnat to marge it
-        int j = i;
-        for (int i = 0; i < other.getLength();i++)
-        {
-            items[j++] = other.items[i];
-            length++;
+        // **دمج مصفوفتين معًا**
+        void Merge(Array other) {
+            int newSize = size + other.getSize(); // حساب الحجم الجديد
+            int *myOldArray = items;
+            items = new int[newSize]; // إنشاء مصفوفة جديدة
+            // نسخ العناصر من المصفوفة الحالية
+            int i;
+            for (i = 0; i < length; i++) {
+                items[i] = myOldArray[i];
+            }
+            delete[] myOldArray;
+            // نسخ العناصر من المصفوفة الثانية
+            int j = i;
+            for (int k = 0; k < other.getLength(); k++) {
+                items[j++] = other.items[k];
+                length++;
+            }
         }
-    }
 };
 
-int main(){
-    //size of the array
+
+int main() {
+    // تحديد حجم المصفوفة
     int arraySize;
-    cout<< "Enter the array size: ";
+    cout << "Enter the array size: ";
     cin >> arraySize;
-    Array myArray(arraySize);
-    
-    //fill the Array
+    Array myArray(arraySize); // إنشاء مصفوفة
+
+    // تعبئة المصفوفة
     myArray.fill();
 
-    //search
+    // البحث عن عنصر
     int key = 0;
     cout << "Enter the number you want to search about it: ";
     cin >> key;
     int index = myArray.Search(key);
-    if(index == -1){
+    if (index == -1) {
         cout << "Item not found" << endl;
-    }
-    else{
-        cout << "item found position " << index << endl;
+    } else {
+        cout << "Item found at position " << index << endl;
     }
 
-    // print
+    // عرض المصفوفة
     myArray.Display();
 
-    //Append
+    // إضافة عنصر جديد
     string add;
-    cout << "Do you want to Enter a new index (yes or no ): ";
+    cout << "Do you want to Enter a new index (yes or no): ";
     cin >> add;
-    if(add == "yes"){
+    if (add == "yes") {
         int newItem;
-        cout << "Enter a new items: ";
+        cout << "Enter a new item: ";
         cin >> newItem;
         myArray.Append(newItem);
     }
 
-    //Insert
+    // إدراج عنصر في فهرس معين
     int indexadd, value;
+    cout << "Insert a new value" << endl;
     cout << "Enter the index: ";
     cin >> indexadd;
     cout << "Enter the value: ";
     cin >> value;
     myArray.Insert(indexadd, value);
 
-    // Delete
+    // حذف عنصر
     int indexDelete;
     cout << "Enter the index you want to Delete: ";
     cin >> indexDelete;
     myArray.Delete(indexDelete);
 
-    //size of the array
-    cout << "Array size = " << myArray.getSize()<<endl;
-    cout << "while length = " << myArray.getLength() << endl;
+    // عرض الحجم والطول
+    cout << "Array size = " << myArray.getSize() << endl;
+    cout << "Length = " << myArray.getLength() << endl;
 
-    //Enlarge
+    // تكبير الحجم
     string isSize;
-    cout << "Do you want to make a new size for the current array size (yes or no ): ";
+    cout << "Do you want to make a new size for the current array size (yes or no): ";
     cin >> isSize;
-    if(isSize == "yes"){
+    if (isSize == "yes") {
         int size;
         cout << "Enter the new size of the array: ";
         cin >> size;
         myArray.Enlarge(size);
     }
 
-    Array other(3); //new array 
-    other.fill(); //the fill function above
-    myArray.Merge(other);
+    // دمج مع مصفوفة أخرى
+    Array other(3); // مصفوفة جديدة
+    other.fill(); // تعبئتها
+    myArray.Merge(other); // دمجها مع المصفوفة الحالية
 
-    // size of the array
-    cout<< "Array size = " << myArray.getSize() << endl;
-    cout << "while length = " << myArray.getLength() << endl;
+    // عرض الحجم والطول بعد الدمج
+    cout << "Array size = " << myArray.getSize() << endl;
+    cout << "Length = " << myArray.getLength() << endl;
 
-    // print
+    // عرض المصفوفة النهائية
     myArray.Display();
+
+    return 0;
 }
