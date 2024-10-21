@@ -83,11 +83,52 @@ class LinkedList{
         }
         return false;
     }
+
+    //اضافه عنصر قبل عنصر 
+    /*
+        EX:
+        if i have 5,3,0,7,9 
+        and i wnat to add 4 after the 0
+    */
+    void inserBefore(int item,int newValue){
+        if(isEmpty()){
+            insertFirst(newValue);
+        }
+        else{
+            if(isFound(item)){
+            Node *newNode = new Node(); 
+            newNode->Data = newValue; 
+            Node *temp = Head;
+            while (temp != NULL && temp->next->Data != item){
+                temp = temp->next;
+            }
+            newNode->next = temp->next; 
+            temp->next = newNode; 
+            }else{
+                cout << "Sorry , item not found";
+            }
+        }
+    }
+
+    //LIST اضافه عنصر الي نهايه ال 
+    void Append(int newValue){
+        if(isEmpty()){
+            insertFirst(newValue);
+        }
+        else{
+            Node *temp = Head;
+            while (temp->next != NULL){
+                temp = temp->next;
+            }
+            Node *newNode = new Node(); 
+            newNode->Data = newValue;
+            temp->next = newNode;
+            newNode->next = NULL;
+        }
+    }
 };
 
-int
-main()
-{
+int main(){
     LinkedList list;  // إنشاء قائمة جديدة
 
     // التحقق مما إذا كانت القائمة فارغة
@@ -109,9 +150,6 @@ main()
         list.insertFirst(item);
     }
 
-    // dispaly
-    list.Display();
-
     // البحث عن عنصر معين في القائمة
     int search;
     cout << "Enter item to search for: ";
@@ -121,4 +159,22 @@ main()
     }else{
         cout << "items is not found"<<endl;
     }
+
+    //اضافه عنصر قبل عنصر
+    cout << "Here you will insert item before item" << endl;
+    int newValue, myItem;
+    cout << "Entert item: ";
+    cin >> myItem;
+    cout << "Entera new value to insert: ";
+    cin >> newValue;
+    list.inserBefore(myItem,newValue);
+
+    //LIST اضافه عنصر الي نهايه ال
+    int newItem;
+    cout << "Enter a new item: ";
+    cin >> newItem;
+    list.Append(newItem);
+
+    // dispaly
+    list.Display();
 }
