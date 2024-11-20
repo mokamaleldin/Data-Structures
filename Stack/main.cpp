@@ -8,16 +8,27 @@ class stack{
         int capacity;
         int top;
 
-        bool isFull(){
-            return top == capacity - 1;
-        }
         bool isEmpty(){
             return top == -1; 
         }
+
+        void resize(){
+            int newCapacity = capacity * 2;
+            int *newItems = new int[newCapacity];
+
+            for (int i = 0; i < capacity;i++){
+                newItems[i] = items[i];
+            }
+
+            delete[] items;
+            items = newItems;
+            capacity = newCapacity;
+        }
+
     public:
     
         // stack(){top =-1}
-        stack(int maxCapacity):capacity(maxCapacity),top(-1)
+        stack(int initialCapacity =2):capacity(initialCapacity),top(-1)
         {
             items = new int[capacity];
         }
@@ -27,9 +38,8 @@ class stack{
         }
 
        void push(int element){
-            if(isFull()){
-                cout << "Stack is full";
-                return;
+            if (top + 1 == capacity) {
+                resize();
             }
            top++;
            items[top] = element;
@@ -67,11 +77,10 @@ int main() {
     stack stack1(10);
     stack1.push(10);
     stack1.push(20);
-    cout << "Top element is: " << stack1.peek() << endl; 
     stack1.push(30);
     stack1.push(40); 
     stack1.pop();
-    cout << "Top element after pop is: " << stack1.peek() << endl;
+    cout << "Top element (peek): " << stack1.peek() << endl;
     stack1.pop();
     stack1.pop();
 
