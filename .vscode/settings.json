@@ -5,7 +5,8 @@
     "algorithm": "cpp",
     "iostream": "cpp",
     "ostream": "cpp",
-    "new": "cpp"
+    "new": "cpp",
+    "vector": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

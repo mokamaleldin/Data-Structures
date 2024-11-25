@@ -22,7 +22,8 @@ public:
     {
         if (top1 < top2 - 1)
         {
-            arr[++top1] = value;
+            top1++; // 0
+            arr[top1] = value;
             return;
         }
         cout << "Stack Overflow in Stack 1" << endl;
@@ -32,7 +33,8 @@ public:
     {
         if (top1 < top2 - 1)
         {
-            arr[--top2] = value;
+            top2--; // 5
+            arr[top2] = value;
             return;
         }
         cout << "Stack Overflow in Stack 1" << endl;
@@ -42,7 +44,8 @@ public:
     {
         if (top1 > -1)
         {
-            cout << "the vlaue of top 1 " << arr[top1--] << endl;
+            cout << "the vlaue of top 1 " << arr[top1] << endl;
+            top1--;
         }
     }
 
@@ -51,21 +54,25 @@ public:
         if (top2 < size)
         {
 
-            cout << "the vlaue of top 2 " << arr[top2++] << endl;
+            cout << "the vlaue of top 2 " << arr[top2] << endl;
+            top2++;
         }
     }
 
 };
 
+int hassan()
+{
+    cout << "Hello hassan";
+}
+
 int main()
 {
-    TwoStacks s1(10);
-    s1.push1(10);
-    s1.push1(20);
-    s1.push1(30);
-    s1.push2(555);
-    s1.push2(7474);
-    s1.push2(370);
+    TwoStacks s1(5);
+
+        s1.push1(10);
+    s1.push2(20);
+    s1.push2(30);
 
     s1.pop1();
     s1.pop2();
