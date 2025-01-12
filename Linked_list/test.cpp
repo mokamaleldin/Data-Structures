@@ -2,37 +2,40 @@
 #define nullptr NULL
 using namespace std;
 
-// Node class
 template <typename T>
 class Node
 {
 public:
-    T data;     // Data of the node
-    Node *next; // Pointer to the next node
+    T data;
+    Node *next; // same type Node (علشان تشاور علي النود من نفس النوع عملتها نود)
 
-    // Constructor
+    // make the node the data with value
+    // make the next to be null (أي أن العقدة لا تشير إلى أي عقدة أخرى بعد)
     Node(T value) : data(value), next(nullptr) {}
 };
 
-// LinkedList class
 template <typename T>
 class LinkedList
 {
 private:
-    Node<T> *head; // Pointer to the head node
+    Node<T> *head; // i add <T> to make it take any type (Node *head it will not take any type) also because i use the template
 
 public:
-    // Constructor
+    // make the head to be the null because it is the first item in the linked list
     LinkedList() : head(nullptr) {}
 
-    // Function to add a node at the end
     void append(T value)
     {
+        // make a new node
+        // newNode => Node<T> هو مؤشر إلى كائن من النوع
+        // new => تُستخدم لإنشاء كائن جديد في الذاكرة الديناميكية
         Node<T> *newNode = new Node<T>(value);
         if (!head)
         {
             head = newNode;
         }
+        // temp = head
+        // temp->next => يتم التكرار حتى الوصول إلى آخر عقدة في القائمة
         else
         {
             Node<T> *temp = head;
@@ -44,12 +47,11 @@ public:
         }
     }
 
-    // Function to add a node at the beginning
     void prepend(T value)
     {
         Node<T> *newNode = new Node<T>(value);
-        newNode->next = head;
-        head = newNode;
+        newNode->next = head; // locatin for the haed next
+        head = newNode;       // then the hade = newNode
     }
 
     // Function to insert a node after the node that p points to
@@ -72,7 +74,7 @@ public:
         if (!head)
             return;
 
-        if (head->data == value)
+        if (head->data == value) //delete the first item in the linked list
         {
             Node<T> *temp = head;
             head = head->next;
@@ -94,7 +96,7 @@ public:
         }
     }
 
-    // Function to display the linked list
+
     void display() const
     {
         Node<T> *temp = head;
@@ -105,45 +107,16 @@ public:
         }
         cout << "nullptr" << endl;
     }
-
-    // Function to get the head of the list
-    Node<T> *getHead() const
-    {
-        return head;
-    }
-
-    // Destructor to clean up memory
-    ~LinkedList()
-    {
-        Node<T> *current = head;
-        while (current)
-        {
-            Node<T> *nextNode = current->next;
-            delete current;
-            current = nextNode;
-        }
-    }
 };
 
-// Example usage
 int main()
 {
     LinkedList<int> list;
-
-    // Append nodes
     list.append(10);
     list.append(20);
-    list.append(30);
-    list.display(); // Output: 10 -> 20 -> 30 -> nullptr
-
-    // Insert after the first node
-    Node<int> *head = list.getHead();
-    list.insert(head, 15); // Insert 15 after 10
-    list.display();        // Output: 10 -> 15 -> 20 -> 30 -> nullptr
-
-    // Insert after the second node
-    list.insert(head->next, 18); // Insert 18 after 15
-    list.display();              // Output: 10 -> 15 -> 18 -> 20 -> 30 -> nullptr
-
+    list.append(25);
+    list.append(555);
+    list.prepend(5);
+    list.display();
     return 0;
 }
