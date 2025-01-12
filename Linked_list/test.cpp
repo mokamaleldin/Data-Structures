@@ -30,6 +30,7 @@ public:
         // newNode => Node<T> هو مؤشر إلى كائن من النوع
         // new => تُستخدم لإنشاء كائن جديد في الذاكرة الديناميكية
         Node<T> *newNode = new Node<T>(value);
+
         if (!head)
         {
             head = newNode;
@@ -47,56 +48,6 @@ public:
         }
     }
 
-    void prepend(T value)
-    {
-        Node<T> *newNode = new Node<T>(value);
-        newNode->next = head; // locatin for the haed next
-        head = newNode;       // then the hade = newNode
-    }
-
-    // Function to insert a node after the node that p points to
-    void insert(Node<T> *p, T value)
-    {
-        if (!p)
-        {
-            cout << "Error: Provided pointer is null." << endl;
-            return;
-        }
-
-        Node<T> *newNode = new Node<T>(value);
-        newNode->next = p->next;
-        p->next = newNode;
-    }
-
-    // Function to delete a node by value
-    void remove(T value)
-    {
-        if (!head)
-            return;
-
-        if (head->data == value) //delete the first item in the linked list
-        {
-            Node<T> *temp = head;
-            head = head->next;
-            delete temp;
-            return;
-        }
-
-        Node<T> *current = head;
-        while (current->next && current->next->data != value)
-        {
-            current = current->next;
-        }
-
-        if (current->next)
-        {
-            Node<T> *temp = current->next;
-            current->next = current->next->next;
-            delete temp;
-        }
-    }
-
-
     void display() const
     {
         Node<T> *temp = head;
@@ -112,11 +63,13 @@ public:
 int main()
 {
     LinkedList<int> list;
+
     list.append(10);
     list.append(20);
-    list.append(25);
-    list.append(555);
-    list.prepend(5);
+    list.append(30);
+    list.append(40);
+
     list.display();
+
     return 0;
 }

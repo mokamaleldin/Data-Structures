@@ -1,9 +1,9 @@
 #include <iostream>
 #define nullptr NULL
 using namespace std;
-
+        
 // Node class
-template <typename T>
+template <typename T>              
 class Node
 {
 public:
@@ -146,4 +146,66 @@ int main()
     list.display();              // Output: 10 -> 15 -> 18 -> 20 -> 30 -> nullptr
 
     return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void prepend(T value)
+{
+    Node<T> *newNode = new Node<T>(value);
+    newNode->next = head; // locatin for the haed next
+    head = newNode;       // then the hade = newNode
+}
+
+// Function to insert a node after the node that p points to
+void insert(Node<T> *p, T value)
+{
+    if (!p)
+    {
+        cout << "Error: Provided pointer is null." << endl;
+        return;
+    }
+
+    Node<T> *newNode = new Node<T>(value);
+    newNode->next = p->next;
+    p->next = newNode;
+}
+
+// Function to delete a node by value
+void remove(T value)
+{
+    if (!head)
+        return;
+
+    if (head->data == value) // delete the first item in the linked list
+    {
+        Node<T> *temp = head;
+        head = head->next;
+        delete temp;
+        return;
+    }
+
+    Node<T> *current = head;
+    while (current->next && current->next->data != value)
+    {
+        current = current->next;
+    }
+
+    if (current->next)
+    {
+        Node<T> *temp = current->next;
+        current->next = current->next->next;
+        delete temp;
+    }
 }
