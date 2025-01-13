@@ -161,26 +161,9 @@ int main()
 
 
 
-void prepend(T value)
-{
-    Node<T> *newNode = new Node<T>(value);
-    newNode->next = head; // locatin for the haed next
-    head = newNode;       // then the hade = newNode
-}
 
-// Function to insert a node after the node that p points to
-void insert(Node<T> *p, T value)
-{
-    if (!p)
-    {
-        cout << "Error: Provided pointer is null." << endl;
-        return;
-    }
 
-    Node<T> *newNode = new Node<T>(value);
-    newNode->next = p->next;
-    p->next = newNode;
-}
+
 
 // Function to delete a node by value
 void remove(T value)

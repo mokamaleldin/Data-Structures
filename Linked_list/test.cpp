@@ -48,6 +48,28 @@ public:
         }
     }
 
+    void prepend(T value)
+    {
+        Node<T> *newNode = new Node<T>(value);
+
+        newNode->next = head; // locatin for the haed next
+        head = newNode;       // then the hade = newNode
+    }
+
+    // Function to insert a node after the node that p points to
+    void insert(Node<T> *p, T value)
+    {
+        if (!p)
+        {
+            cout << "Error: Provided pointer is null." << endl;
+            return;
+        }
+
+        Node<T> *newNode = new Node<T>(value);
+        newNode->next = p->next;
+        p->next = newNode;
+    }
+
     void display() const
     {
         Node<T> *temp = head;
@@ -57,6 +79,33 @@ public:
             temp = temp->next;
         }
         cout << "nullptr" << endl;
+    }
+
+    void remove(T value)
+    {
+        if (!head)
+            return;
+
+        if (head->data == value)
+        {
+            Node<T> *temp = head;
+            head = head->next;
+            delete temp;
+            return;
+        }
+
+        Node<T> *current = head;
+        while (current->next && current->next->data != value)
+        {
+            current = current->next;
+        }
+
+        if (current->next)
+        {
+            Node<T> *temp = current->next;
+            current->next = current->next->next;
+            delete temp;
+        }
     }
 };
 
@@ -68,8 +117,11 @@ int main()
     list.append(20);
     list.append(30);
     list.append(40);
+    list.prepend(5);
 
-    list.display();
+    list.remove(20);
+
+    list.display(); // Output: 5 -> 10 -> 20 -> 30 -> 40 -> nullptr
 
     return 0;
 }
