@@ -407,8 +407,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/mkee/learn/Data-structures/BST",
-      "program": "/home/mkee/learn/Data-structures/BST/build/Debug/outDebug",
+      "cwd": "/home/mkee/learn/Data-structures/Queue",
+      "program": "/home/mkee/learn/Data-structures/Queue/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
