@@ -123,6 +123,7 @@ public:
             return search(node->right, val);
         }
     }
+
 };
 
 int main()
