@@ -1,127 +1,76 @@
-#include <iostream>
-#define nullptr NULL
-using namespace std;
+// class LinkedStack
+// {
+// private:
+//     Node *head;
 
-template <typename T>
-class Node
+// public:
+//     LinkedStack() : head(nullptr) {}
+
+//     void push(int value)
+//     {
+//         Node *newNode = new Node(value);
+//         newNode->next = head;
+//         head = newNode;
+//     }
+
+//     int pop()
+//     {
+//         if (!head){
+//             return -1;
+//         }
+//         int value = head->data;
+//         Node *temp = head;
+//         head = head->next;
+//         delete temp;
+//         return value;
+//     }
+
+
+// };
+
+bool deleteNth(Node *&head, int n)
 {
-public:
-    T data;
-    Node *next; // same type Node (علشان تشاور علي النود من نفس النوع عملتها نود)
+    if (!head)
+        return false;
+    if (n == 0)
+    {
+        Node *temp = head;
+        head = head->next;
+        delete temp;
+        return true;
+    }
 
-    // make the node the data with value
-    // make the next to be null (أي أن العقدة لا تشير إلى أي عقدة أخرى بعد)
-    Node(T value) : data(value), next(nullptr) {}
-};
+    Node *prev = nullptr;
+    Node *current = head;
+    for (int i = 0; i < n && current; i++)
+    {
+        prev = current;
+        current = current->next;
+    }
 
-template <typename T>
-class LinkedList
+    if (!current)
+        return false;
+
+    prev->next = current->next;
+    delete current;
+    return true;
+}
+
+Node *mergeSortedLists(Node *l1, Node *l2)
 {
-private:
-    Node<T> *head; // i add <T> to make it take any type (Node *head it will not take any type) also because i use the template
+    if (!l1)
+        return l2;
+    if (!l2)
+        return l1;
 
-public:
-    // make the head to be the null because it is the first item in the linked list
-    LinkedList() : head(nullptr) {}
-
-    void append(T value)
+    if (l1->data < l2->data)
     {
-        // make a new node
-        // newNode => Node<T> هو مؤشر إلى كائن من النوع
-        // new => تُستخدم لإنشاء كائن جديد في الذاكرة الديناميكية
-        Node<T> *newNode = new Node<T>(value);
-
-        if (!head)
-        {
-            head = newNode;
-        }
-        // temp = head
-        // temp->next => يتم التكرار حتى الوصول إلى آخر عقدة في القائمة
-        else
-        {
-            Node<T> *temp = head;
-            while (temp->next)
-            {
-                temp = temp->next;
-            }
-            temp->next = newNode;
-        }
+        l1->next = mergeSortedLists(l1->next, l2);
+        return l1;
     }
-
-    void prepend(T value)
+    else
     {
-        Node<T> *newNode = new Node<T>(value);
-
-        newNode->next = head; // locatin for the haed next
-        head = newNode;       // then the hade = newNode
+        l2->next = mergeSortedLists(l1, l2->next);
+        return l2;
     }
-
-    // Function to insert a node after the node that p points to
-    void insert(Node<T> *p, T value)
-    {
-        if (!p)
-        {
-            cout << "Error: Provided pointer is null." << endl;
-            return;
-        }
-
-        Node<T> *newNode = new Node<T>(value);
-        newNode->next = p->next;
-        p->next = newNode;
-    }
-
-    void display() const
-    {
-        Node<T> *temp = head;
-        while (temp)
-        {
-            cout << temp->data << " -> ";
-            temp = temp->next;
-        }
-        cout << "nullptr" << endl;
-    }
-
-    void remove(T value)
-    {
-        if (!head)
-            return;
-
-        if (head->data == value)
-        {
-            Node<T> *temp = head;
-            head = head->next;
-            delete temp;
-            return;
-        }
-
-        Node<T> *current = head;
-        while (current->next && current->next->data != value)
-        {
-            current = current->next;
-        }
-
-        if (current->next)
-        {
-            Node<T> *temp = current->next;
-            current->next = current->next->next;
-            delete temp;
-        }
-    }
-};
-
-int main()
-{
-    LinkedList<int> list;
-
-    list.append(10);
-    list.append(20);
-    list.append(30);
-    list.append(40);
-    list.prepend(5);
-
-    list.remove(20);
-
-    list.display(); // Output: 5 -> 10 -> 20 -> 30 -> 40 -> nullptr
-
-    return 0;
 }

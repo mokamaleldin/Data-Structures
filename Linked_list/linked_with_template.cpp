@@ -162,33 +162,3 @@ int main()
 
 
 
-
-
-
-// Function to delete a node by value
-void remove(T value)
-{
-    if (!head)
-        return;
-
-    if (head->data == value) // delete the first item in the linked list
-    {
-        Node<T> *temp = head;
-        head = head->next;
-        delete temp;
-        return;
-    }
-
-    Node<T> *current = head;
-    while (current->next && current->next->data != value)
-    {
-        current = current->next;
-    }
-
-    if (current->next)
-    {
-        Node<T> *temp = current->next;
-        current->next = current->next->next;
-        delete temp;
-    }
-}
